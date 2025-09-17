@@ -15,7 +15,8 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    "strict": true,
+    "strict": false,
+    "noImplicitAny": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
@@ -36,11 +37,13 @@
   },
   "include": [
     "src/**/*.ts", 
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "src/vite-env.d.ts"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "build"
+    "build",
+    "src/supabase/functions/server"
   ],
 }

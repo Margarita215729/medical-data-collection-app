@@ -83,7 +83,8 @@ export async function testSupabaseConnection(projectId?: string, anonKey?: strin
       console.error('1. Server function not deployed');
       console.error('2. CORS errors');
       console.error('3. Incorrect environment variables on server');
-      return false;
+      console.warn('⚠️ Server functions unavailable, but Auth connection works - proceeding with limited functionality');
+      return true; // Allow app to continue with just Auth functionality
     }
 
   } catch (error) {

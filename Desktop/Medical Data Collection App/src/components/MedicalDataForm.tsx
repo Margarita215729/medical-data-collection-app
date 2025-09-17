@@ -369,7 +369,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
     ];
 
     const handleDHIChange = (questionIndex: number, value: string) => {
-      const newResponses = { ...medicalData?.dhi?.responses } || {};
+      const newResponses = { ...medicalData?.dhi?.responses || {} };
       newResponses[questionIndex] = parseInt(value);
       
       // Calculate total score (Yes=4, Sometimes=2, No=0)
@@ -466,7 +466,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
     ];
 
     const handleHIT6Change = (questionIndex: number, value: string) => {
-      const newResponses = { ...medicalData?.hit6?.responses } || {};
+      const newResponses = { ...medicalData?.hit6?.responses || {} };
       newResponses[questionIndex] = parseInt(value);
       
       const totalScore = Object.values(newResponses).reduce((sum: number, score: any) => sum + (score || 0), 0);
@@ -552,7 +552,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
     ];
 
     const handlePHQ9Change = (questionIndex: number, value: string) => {
-      const newResponses = { ...medicalData?.phq9?.responses } || {};
+      const newResponses = { ...medicalData?.phq9?.responses || {} };
       newResponses[questionIndex] = parseInt(value);
       
       const totalScore = Object.values(newResponses).reduce((sum: number, score: any) => sum + (score || 0), 0);
@@ -636,7 +636,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
     ];
 
     const handleGAD7Change = (questionIndex: number, value: string) => {
-      const newResponses = { ...medicalData?.gad7?.responses } || {};
+      const newResponses = { ...medicalData?.gad7?.responses || {} };
       newResponses[questionIndex] = parseInt(value);
       
       const totalScore = Object.values(newResponses).reduce((sum: number, score: any) => sum + (score || 0), 0);
