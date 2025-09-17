@@ -461,7 +461,7 @@ export const MLReviewDashboard: React.FC<MLReviewDashboardProps> = ({
                   <div className="pt-2">
                     <div className="text-xs font-medium text-slate-700 mb-1">Top Approved Symptoms:</div>
                     <div className="flex flex-wrap gap-1">
-                      {insights.mostCommonApprovedSymptoms.slice(0, 3).map((item, index) => (
+                      {insights.mostCommonApprovedSymptoms.slice(0, 3).map((item: any, index: number) => (
                         <Badge key={index} variant="secondary" className="text-xs">
                           {item.symptom} ({item.count})
                         </Badge>

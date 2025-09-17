@@ -230,7 +230,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
         items: {
           ...prev.items,
           [testKey]: {
-            ...prev.items[testKey],
+            ...(prev.items as Record<string, any>)[testKey],
             [field]: value
           }
         }
@@ -285,7 +285,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
                     type="number"
                     min="0"
                     max="10"
-                    value={vomsData.items[test.key]?.symptoms || ''}
+                    value={(vomsData.items as Record<string, any>)[test.key]?.symptoms || ''}
                     onChange={(e) => handleItemChange(test.key, 'symptoms', e.target.value)}
                     placeholder="0"
                     className="h-11 sm:h-10 text-sm sm:text-base"
@@ -294,7 +294,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
                 <div className="space-y-2">
                   <Label className="text-xs sm:text-sm font-medium">Dizziness</Label>
                   <Select
-                    value={vomsData.items[test.key]?.dizziness || ''}
+                    value={(vomsData.items as Record<string, any>)[test.key]?.dizziness || ''}
                     onValueChange={(value) => handleItemChange(test.key, 'dizziness', value)}
                   >
                     <SelectTrigger className="h-11 sm:h-10 text-sm sm:text-base">
@@ -311,7 +311,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
                 <div className="space-y-2">
                   <Label className="text-xs sm:text-sm font-medium">Nausea</Label>
                   <Select
-                    value={vomsData.items[test.key]?.nausea || ''}
+                    value={(vomsData.items as Record<string, any>)[test.key]?.nausea || ''}
                     onValueChange={(value) => handleItemChange(test.key, 'nausea', value)}
                   >
                     <SelectTrigger className="h-11 sm:h-10 text-sm sm:text-base">
@@ -369,19 +369,19 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
     ];
 
     const handleDHIChange = (questionIndex: number, value: string) => {
-      const newResponses = { ...medicalData?.dhi?.responses } || {};
+      const newResponses = { ...(medicalData?.dhi?.responses || {}) };
       newResponses[questionIndex] = parseInt(value);
       
       // Calculate total score (Yes=4, Sometimes=2, No=0)
       const totalScore = Object.values(newResponses).reduce((sum: number, score: any) => sum + (score || 0), 0);
       
-      setMedicalData(prev => ({
+      setMedicalData(prev => prev ? ({
         ...prev,
         dhi: {
           responses: newResponses,
           totalScore
         }
-      }));
+      }) : null);
     };
 
     const handleSave = () => {
@@ -466,18 +466,18 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
     ];
 
     const handleHIT6Change = (questionIndex: number, value: string) => {
-      const newResponses = { ...medicalData?.hit6?.responses } || {};
+      const newResponses = { ...(medicalData?.hit6?.responses || {}) };
       newResponses[questionIndex] = parseInt(value);
       
       const totalScore = Object.values(newResponses).reduce((sum: number, score: any) => sum + (score || 0), 0);
       
-      setMedicalData(prev => ({
+      setMedicalData(prev => prev ? ({
         ...prev,
         hit6: {
           responses: newResponses,
           totalScore
         }
-      }));
+      }) : null);
     };
 
     const handleSave = () => {
@@ -552,18 +552,18 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
     ];
 
     const handlePHQ9Change = (questionIndex: number, value: string) => {
-      const newResponses = { ...medicalData?.phq9?.responses } || {};
+      const newResponses = { ...(medicalData?.phq9?.responses || {}) };
       newResponses[questionIndex] = parseInt(value);
       
       const totalScore = Object.values(newResponses).reduce((sum: number, score: any) => sum + (score || 0), 0);
       
-      setMedicalData(prev => ({
+      setMedicalData(prev => prev ? ({
         ...prev,
         phq9: {
           responses: newResponses,
           totalScore
         }
-      }));
+      }) : null);
     };
 
     const handleSave = () => {
@@ -636,18 +636,18 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
     ];
 
     const handleGAD7Change = (questionIndex: number, value: string) => {
-      const newResponses = { ...medicalData?.gad7?.responses } || {};
+      const newResponses = { ...(medicalData?.gad7?.responses || {}) };
       newResponses[questionIndex] = parseInt(value);
       
       const totalScore = Object.values(newResponses).reduce((sum: number, score: any) => sum + (score || 0), 0);
       
-      setMedicalData(prev => ({
+      setMedicalData(prev => prev ? ({
         ...prev,
         gad7: {
           responses: newResponses,
           totalScore
         }
-      }));
+      }) : null);
     };
 
     const handleSave = () => {
@@ -717,7 +717,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
       setRehabData(prev => ({
         ...prev,
         [type]: {
-          ...prev[type],
+          ...(prev as Record<string, any>)[type],
           [field]: value
         }
       }));
@@ -752,7 +752,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
                   <div className="space-y-2">
                     <Label className="text-xs sm:text-sm font-medium">Status</Label>
                     <Select
-                      value={rehabData[type.key]?.status || ''}
+                      value={(rehabData as Record<string, any>)[type.key]?.status || ''}
                       onValueChange={(value) => handleRehabChange(type.key, 'status', value)}
                     >
                       <SelectTrigger className="h-11 sm:h-10 text-sm sm:text-base">
@@ -773,7 +773,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
                       type="number"
                       min="0"
                       max="100"
-                      value={rehabData[type.key]?.progress || ''}
+                      value={(rehabData as Record<string, any>)[type.key]?.progress || ''}
                       onChange={(e) => handleRehabChange(type.key, 'progress', e.target.value)}
                       placeholder="0-100"
                       className="h-11 sm:h-10 text-sm sm:text-base"
@@ -783,7 +783,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
                   <div className="space-y-2">
                     <Label className="text-xs sm:text-sm font-medium">Dosage/Frequency</Label>
                     <Input
-                      value={rehabData[type.key]?.dosage || ''}
+                      value={(rehabData as Record<string, any>)[type.key]?.dosage || ''}
                       onChange={(e) => handleRehabChange(type.key, 'dosage', e.target.value)}
                       placeholder="e.g., 15-30 min daily"
                       className="h-11 sm:h-10 text-sm sm:text-base"
@@ -794,7 +794,7 @@ export function MedicalDataForm({ patient, accessToken, onBack }: MedicalDataFor
                 <div className="space-y-2">
                   <Label className="text-xs sm:text-sm font-medium">Notes</Label>
                   <Textarea
-                    value={rehabData[type.key]?.notes || ''}
+                    value={(rehabData as Record<string, any>)[type.key]?.notes || ''}
                     onChange={(e) => handleRehabChange(type.key, 'notes', e.target.value)}
                     placeholder="Notes on interventions, patient response, changes..."
                     rows={screenSize === 'mobile' ? 2 : 3}
